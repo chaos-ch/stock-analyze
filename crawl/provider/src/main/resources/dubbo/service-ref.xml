@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!--<dubbo:consumer timeout="60000" filter="qmonitor,traceContextFilter,qmonCons">-->
+        <!--<dubbo:parameter key="qloglevel" value="0" />-->
+    <!--</dubbo:consumer>-->
+
+    <!--&lt;!&ndash; price service &ndash;&gt;-->
+    <!--<dubbo:reference id="orderStoreReadService"-->
+                     <!--interface="com.qunar.hotel.qta.order.store.api.service.OrderStoreReadService" version="1.0"-->
+                     <!--registry="order-store-registry" check="false"/>-->
+
+    <!--<dubbo:reference id="orderStoreWriteService"-->
+                     <!--interface="com.qunar.hotel.qta.order.store.api.service.OrderStoreWriteService" version="1.0"-->
+                     <!--registry="order-store-registry" check="false"/>-->
+
+
+</beans>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- druid config -->
+    <!--<bean id="druidDataSourceConfig" class="com.qunar.hotel.qta.base.pxcdatasource.DruidDataSourceConfig" destroy-method="close">-->
+    <!--&lt;!&ndash; 配置最小空闲连接数 &ndash;&gt;-->
+    <!--<property name="minIdle" value="${core.druid.minIdle}" />-->
+    <!--&lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+    <!--<property name="maxWait" value="${core.druid.maxWait}" />-->
+    <!--&lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+    <!--<property name="timeBetweenEvictionRunsMillis" value="${core.druid.timeBetweenEvictionRunsMillis}" />-->
+    <!--&lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+    <!--<property name="minEvictableIdleTimeMillis" value="${core.druid.minEvictableIdleTimeMillis}" />-->
+    <!--<property name="validationQuery" value="SELECT 1" />-->
+    <!--<property name="testWhileIdle" value="${core.druid.testWhileIdle}" />-->
+    <!--<property name="testOnBorrow" value="${core.druid.testOnBorrow}" />-->
+    <!--<property name="testOnReturn" value="${core.druid.testOnReturn}" />-->
+    <!--&lt;!&ndash; 打开PSCache，并且指定每个连接上PSCache的大小 &ndash;&gt;-->
+    <!--<property name="poolPreparedStatements" value="${core.druid.poolPreparedStatements}" />-->
+    <!--<property name="maxPoolPreparedStatementPerConnectionSize" value="${core.druid.maxPoolPreparedStatementPerConnectionSize}" />-->
+    <!--&lt;!&ndash; 配置监控统计拦截的filters &ndash;&gt;-->
+    <!--<property name="filters" value="wall,log4j" />-->
+    <!--<property name="proxyFilters">-->
+    <!--<list>-->
+    <!--<ref bean="stat-filter"/>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--&lt;!&ndash; 合并多个DruidDataSource的监控数据 &ndash;&gt;-->
+    <!--<property name="useGlobalDataSourceStat" value="${core.druid.useGloalDataSourceStat}" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; druid 慢sql记录 &ndash;&gt;-->
+    <!--<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">-->
+    <!--<property name="slowSqlMillis" value="${core.druid.slowSqlMillis}" />-->
+    <!--<property name="logSlowSql" value="${core.druid.logSlowSql}" />-->
+    <!--<property name="mergeSql" value="true" />-->
+    <!--</bean>-->
+
+    <!--<bean id="pxcDataSourceFactory" class="com.qunar.hotel.qta.base.pxcdatasource.DruidDataSourceFactory">-->
+    <!--<property name="druidDataSourceConfig" ref="druidDataSourceConfig"></property>-->
+    <!--</bean>-->
+
+    <!--<bean id="dataSource" class="com.qunar.db.resource.RWDelegatorDataSource">-->
+    <!--<constructor-arg name="namespace" value="${order.core.db.namespace}"/>-->
+    <!--<constructor-arg name="username" value="${order.core.db.username}"/>-->
+    <!--<constructor-arg name="cipher"  value="${order.core.db.password}"/>-->
+    <!--<constructor-arg name="dbName" value="${order.core.db.database}"/>-->
+    <!--<constructor-arg name="corePoolSize"  value="10" />-->
+    <!--<constructor-arg name="maxPoolSize" value="30" />-->
+    <!--<constructor-arg name="jdbcUrlOption"  value="characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;generateSimpleParameterMetadata=true" />-->
+    <!--<constructor-arg name="autoCommit" value="${core.pxc.autoCommit}"/>-->
+    <!--<constructor-arg name="dataSourceFactory" ref="pxcDataSourceFactory" />-->
+    <!--</bean>-->
+
+    <!-- 配置数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://localhost:3306/stock?useUnicode=true&amp;characterEncoding=UTF-8</value>
+            <!--stock是我的数据库  -->
+        </property>
+        <property name="username">
+            <value>stock</value>
+        </property>
+        <property name="password">
+            <value>123456</value>
+        </property>
+    </bean>
+    <!-- 创建SqlSessionFactory -->
+    <bean id="sqlSessionFactory" name="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage"
+                  value="com.ch.sa.crawl.store.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--<bean id="transactionManager" class="qunar.tc.qmq.producer.tx.TransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="trackerRegistry" value="${zookeeper.registry.address}"/>-->
+    <!--</bean>-->
+
+
+</beans>

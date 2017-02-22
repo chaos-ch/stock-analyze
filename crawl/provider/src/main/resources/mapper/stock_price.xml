@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.sa.crawl.store.dao.StockPriceDao">
+	<sql id="stockPriceFields">
+		stock_code as stockCode,
+		data,
+		price_time as priceTime,
+		create_time as createTime
+	</sql>
+	
+    <insert id="addNewPriceData">
+        insert into stock_bs(code, data, bs_time)
+        values(#{stockCode}, #{data}, #{bsTime})
+    </insert>
+
+	<insert id="saveBSInfo">
+		insert into stock_bs(code, data, bs_time)
+		values(#{stockCode}, #{data}, #{bsTime})
+	</insert>
+
+
+	<!--<resultMap id="orderPayLogBean" type="OrderPayLogBean">-->
+    <!--</resultMap>-->
+</mapper>

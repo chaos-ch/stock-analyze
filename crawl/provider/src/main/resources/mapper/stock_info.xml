@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.sa.crawl.store.dao.StockInfoDao">
+	<sql id="selectFields">
+		code as code,
+		name_cn as nameCn
+	</sql>
+	
+    <insert id="addNewPriceData">
+        insert into stock_price(stock_code, data, transaction_id, command, request, response)
+        values(#{orderNo}, #{gateway}, #{transactionId}, #{command}, #{request}, #{response})
+    </insert>
+    
+    <select id="queryAllStock" resultType="com.ch.sa.crawl.bean.Stock">
+    	select
+		<include refid="selectFields"/>
+		from stock_summary
+    </select>
+	<insert id="saveSumm" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id" >
+		insert into stock_summary
+		(code, name_cn)
+		values
+
+		<foreach collection="list" item="item"
+				 separator=",">
+			(
+				#{item.code},
+				#{item.nameCn}
+			)
+		</foreach>
+		on duplicate key update name_cn = values(name_cn)
+	</insert>
+
+	<!--<![CDATA[-->
+		<!--]]>-->
+
+	<!--<resultMap id="orderPayLogBean" type="OrderPayLogBean">-->
+    <!--</resultMap>-->
+</mapper>
