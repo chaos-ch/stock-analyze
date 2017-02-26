@@ -2,8 +2,11 @@ package com.ch.sa.crawl.price;
 
 import com.ch.sa.crawl.bean.Stock;
 import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;
+import com.ch.sa.crawl.bean.qqstock.QQGegu;
+import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.crawl.service.Crawler;
 import com.ch.sa.crawl.store.dao.StockInfoDao;
+import com.ch.sa.crawl.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,10 @@ public class StockInfoService {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void updateBaseInfo(QQStockBaseInfo stockBaseInfo) {
+        stockInfoDao.addBaseInfo(stockBaseInfo.getCode(), JsonUtil.toJsonString(stockBaseInfo), 1);
     }
 
     public static void main(String[] args) {

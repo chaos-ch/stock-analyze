@@ -7,9 +7,9 @@
 		name_cn as nameCn
 	</sql>
 	
-    <insert id="addNewPriceData">
-        insert into stock_price(stock_code, data, transaction_id, command, request, response)
-        values(#{orderNo}, #{gateway}, #{transactionId}, #{command}, #{request}, #{response})
+    <insert id="addBaseInfo">
+        insert into stock_base_info(code, data, version)
+        values(#{code}, #{data}, #{version})
     </insert>
     
     <select id="queryAllStock" resultType="com.ch.sa.crawl.bean.Stock">

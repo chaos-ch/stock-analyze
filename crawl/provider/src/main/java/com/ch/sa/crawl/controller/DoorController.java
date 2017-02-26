@@ -38,6 +38,9 @@ public class DoorController {
     @Resource(name = "priceCrawlTask")
     private Schedulable priceCrawlTask;
 
+    @Resource(name = "stockInfoTask")
+    private Schedulable stockInfoTask;
+
 
     @ResponseBody
     @RequestMapping("/singleCrawl")
@@ -72,6 +75,13 @@ public class DoorController {
     @RequestMapping("pullbs")
     public Object pullBS() {
         priceCrawlTask.execute();
+        return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("updateStockInfos")
+    public Object updateStockInfos() {
+        stockInfoTask.execute();
         return "success";
     }
 }

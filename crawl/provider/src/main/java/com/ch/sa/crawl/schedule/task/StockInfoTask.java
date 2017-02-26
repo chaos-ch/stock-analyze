@@ -1,9 +1,9 @@
 package com.ch.sa.crawl.schedule.task;
 
-import com.ch.base.lang.time.DateHelper;
 import com.ch.sa.crawl.bean.Stock;
-import com.ch.sa.crawl.bean.StockPriceData;
 import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
+import com.ch.sa.crawl.bean.qqstock.QQResponse;
+import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.crawl.adaptor.BaiduPriceAdaptor;
 import com.ch.sa.crawl.crawl.service.Crawler;
 import com.ch.sa.crawl.price.StockInfoService;
@@ -15,7 +15,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,11 +27,12 @@ import java.util.List;
  * Created by he.chen on 5/4/16.
  */
 @Service
-public class PriceCrawlTask implements Schedulable {
+public class StockInfoTask implements Schedulable {
 
-    private static final Logger logger = LoggerFactory.getLogger(PriceCrawlTask.class);
-    @Resource(name = "baiduStockPriceCrawler")
-    private Crawler<BaiduPriceResponse> sinpleCrawler;
+    private static final Logger logger = LoggerFactory.getLogger(StockInfoTask.class);
+
+    @Resource(name = "qQStockInfoCrawler")
+    private Crawler<QQResponse> sinpleCrawler;
     @Resource
     private StockInfoService stockInfoService;
     @Resource
@@ -53,21 +53,16 @@ public class PriceCrawlTask implements Schedulable {
 
 
                 String code = stock.getCode();
+                String stockCode = new String(code);
                 if (code.startsWith("6")) {
-                    code = "sh" + code;
+                    stockCode = "sh" + code;
                 } else {
-                    code = "sz" + code;
+                    stockCode = "sz" + code;
                 }
-                BaiduPriceResponse response = sinpleCrawler.fetch(code);
-//            PriceData priceData = priceAdaptor.adapt(response);
-//            priceData.setCode(code);
-//            priceData.setCreateDate(new Date());
-                PriceData priceData = new PriceData();
-                priceData.setCode(code.substring(2));
-                priceData.setCreateDate(new Date());
-                priceData.setData(JsonUtil.toJsonString(response));
-                priceData.setDate(DateUtils.truncate(now, Calendar.DATE));
-                priceService.savePrice(priceData);
+                QQResponse response = sinpleCrawler.fetch(stockCode);
+                QQStockBaseInfo baseInfo = response.getData();
+                baseInfo.setCode(code);
+                stockInfoService.updateBaseInfo(baseInfo);
             } catch (Exception e) {
                 logger.error("update stock list failed", e);
             }
