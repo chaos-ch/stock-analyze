@@ -19,4 +19,14 @@ public class StockPriceService {
         stockPriceDao.saveBSInfo(priceData.getCode(), priceData.getData(), priceData.getDate());
 
     }
+
+    /**
+     * 保存日线价格
+     * @param priceData priceData
+     */
+    public void saveDayPrice(PriceData priceData) {
+        stockPriceDao.saveDailyPrice(priceData.getCode(), priceData.getData(), priceData.getDate());
+
+    }
+
 }

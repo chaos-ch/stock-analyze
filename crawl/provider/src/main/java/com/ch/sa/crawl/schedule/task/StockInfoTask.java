@@ -4,6 +4,7 @@ import com.ch.sa.crawl.bean.Stock;
 import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
 import com.ch.sa.crawl.bean.qqstock.QQResponse;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
+import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfoResponse;
 import com.ch.sa.crawl.crawl.adaptor.BaiduPriceAdaptor;
 import com.ch.sa.crawl.crawl.service.Crawler;
 import com.ch.sa.crawl.price.StockInfoService;
@@ -32,7 +33,7 @@ public class StockInfoTask implements Schedulable {
     private static final Logger logger = LoggerFactory.getLogger(StockInfoTask.class);
 
     @Resource(name = "qQStockInfoCrawler")
-    private Crawler<QQResponse> sinpleCrawler;
+    private Crawler<QQStockBaseInfoResponse> sinpleCrawler;
     @Resource
     private StockInfoService stockInfoService;
     @Resource
@@ -59,7 +60,7 @@ public class StockInfoTask implements Schedulable {
                 } else {
                     stockCode = "sz" + code;
                 }
-                QQResponse response = sinpleCrawler.fetch(stockCode);
+                QQStockBaseInfoResponse response = sinpleCrawler.fetch(stockCode);
                 QQStockBaseInfo baseInfo = response.getData();
                 baseInfo.setCode(code);
                 stockInfoService.updateBaseInfo(baseInfo);

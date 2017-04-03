@@ -19,6 +19,11 @@
 		values(#{stockCode}, #{data}, #{bsTime})
 	</insert>
 
+	<insert id="saveDailyPrice">
+		insert into stock_day_price(code, data, bs_time)
+		values(#{stockCode}, #{data}, #{bsTime})
+	</insert>
+
 
 	<!--<resultMap id="orderPayLogBean" type="OrderPayLogBean">-->
     <!--</resultMap>-->

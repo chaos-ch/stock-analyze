@@ -5,10 +5,11 @@ import java.io.Serializable;
 /**
  * Created by he.chen on 2/26/17.
  */
-public class QQResponse implements Serializable {
+public class QQResponse<T> implements Serializable {
     private int code;
     private String msg;
-    private QQStockBaseInfo data;
+    private T data;
+//    private QQStockBaseInfo data;
 
     public int getCode() {
         return code;
@@ -26,11 +27,18 @@ public class QQResponse implements Serializable {
         this.msg = msg;
     }
 
-    public QQStockBaseInfo getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(QQStockBaseInfo data) {
+    public void setData(T data) {
         this.data = data;
     }
+//    public QQStockBaseInfo getData() {
+//        return data;
+//    }
+//
+//    public void setData(QQStockBaseInfo data) {
+//        this.data = data;
+//    }
 }

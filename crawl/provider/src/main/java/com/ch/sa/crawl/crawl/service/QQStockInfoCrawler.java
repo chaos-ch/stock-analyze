@@ -3,6 +3,7 @@ package com.ch.sa.crawl.crawl.service;
 import com.ch.base.lang.serial.JsonUtil;
 import com.ch.sa.crawl.bean.qqstock.QQResponse;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
+import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfoResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.text.MessageFormat;
  * Created by he.chen on 5/5/16.
  */
 @Service("qQStockInfoCrawler")
-public class QQStockInfoCrawler extends AbstractCrawler<QQResponse> {
+public class QQStockInfoCrawler extends AbstractCrawler<QQStockBaseInfoResponse> {
 
     private static final Logger logger = LoggerFactory.getLogger(QQStockInfoCrawler.class);
 
@@ -27,9 +28,9 @@ public class QQStockInfoCrawler extends AbstractCrawler<QQResponse> {
         return MessageFormat.format(QQ_BASE_INFO_URL, code);
     }
 
-    public QQResponse parseResponse(String str) {
+    public QQStockBaseInfoResponse parseResponse(String str) {
         try {
-            return JsonUtil.parseJson(str, QQResponse.class);
+            return JsonUtil.parseJson(str, QQStockBaseInfoResponse.class);
         } catch (IOException e) {
             logger.error("baidu stock parse json ");
         }

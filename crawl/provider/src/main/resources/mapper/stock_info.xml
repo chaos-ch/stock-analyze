@@ -10,6 +10,7 @@
     <insert id="addBaseInfo">
         insert into stock_base_info(code, data, version)
         values(#{code}, #{data}, #{version})
+        on duplicate key UPDATE data = values(data)
     </insert>
     
     <select id="queryAllStock" resultType="com.ch.sa.crawl.bean.Stock">
