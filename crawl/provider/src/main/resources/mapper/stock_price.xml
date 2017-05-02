@@ -24,6 +24,31 @@
 		values(#{stockCode}, #{data}, #{bsTime})
 	</insert>
 
+	<select id="selectDailyPrice" resultType="com.ch.sa.crawl.store.bean.PriceData">
+		select
+		 id,
+		 code,
+		 data,
+		 bs_time as date,
+		 create_time as createDate
+		 FROM stock_day_price
+		 <where>
+			 <if test="code != null">
+				 code = #{code}
+			 </if>
+			 <if test="dateBegin != null">
+		<![CDATA[
+				 bs_time >= #{dateBegin}
+		]]>
+			 </if>
+
+		 </where>
+
+		<if test="limit != null">
+			order by id desc limit #{limit}
+		</if>
+	</select>
+
 
 	<!--<resultMap id="orderPayLogBean" type="OrderPayLogBean">-->
     <!--</resultMap>-->

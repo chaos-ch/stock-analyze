@@ -6,13 +6,17 @@
 		code as code,
 		name_cn as nameCn
 	</sql>
-	
+
     <insert id="addBaseInfo">
         insert into stock_base_info(code, data, version)
         values(#{code}, #{data}, #{version})
         on duplicate key UPDATE data = values(data)
     </insert>
-    
+
+	<select id="queryBaseInfo" resultType="com.ch.sa.crawl.store.bean.BaseInfo">
+		select data	from stock_base_info where code = #{code}
+	</select>
+
     <select id="queryAllStock" resultType="com.ch.sa.crawl.bean.Stock">
     	select
 		<include refid="selectFields"/>

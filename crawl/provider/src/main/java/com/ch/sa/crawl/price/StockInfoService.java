@@ -5,6 +5,7 @@ import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;
 import com.ch.sa.crawl.bean.qqstock.QQGegu;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.crawl.service.Crawler;
+import com.ch.sa.crawl.store.bean.BaseInfo;
 import com.ch.sa.crawl.store.dao.StockInfoDao;
 import com.ch.sa.crawl.util.JsonUtil;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -45,6 +47,16 @@ public class StockInfoService {
 
     public void updateBaseInfo(QQStockBaseInfo stockBaseInfo) {
         stockInfoDao.addBaseInfo(stockBaseInfo.getCode(), JsonUtil.toJsonString(stockBaseInfo), 1);
+    }
+
+    public QQStockBaseInfo queryBaseInfo(String code) {
+        BaseInfo data = stockInfoDao.queryBaseInfo(code);
+        try {
+            return JsonUtil.parseJson(data.getData(), QQStockBaseInfo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

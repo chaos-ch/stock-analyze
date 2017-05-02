@@ -4,6 +4,7 @@ import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
 import com.ch.sa.crawl.bean.baidu.BaiduStockPrice;
 import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;
 import com.ch.sa.crawl.crawl.service.Crawler;
+import com.ch.sa.crawl.price.StockBizService;
 import com.ch.sa.crawl.price.StockInfoService;
 import com.ch.sa.crawl.schedule.Schedulable;
 import com.ch.sa.crawl.util.JsonUtil;
@@ -35,12 +36,17 @@ public class DoorController {
     @Resource
     private StockInfoService stockInfoService;
 
+    @Resource(name = "dayPriceCrawlTask")
+    private Schedulable dayPriceCrawlTask;
+
     @Resource(name = "priceCrawlTask")
     private Schedulable priceCrawlTask;
 
     @Resource(name = "stockInfoTask")
     private Schedulable stockInfoTask;
 
+    @Resource
+    private StockBizService stockBizService;
 
     @ResponseBody
     @RequestMapping("/singleCrawl")
@@ -79,9 +85,22 @@ public class DoorController {
     }
 
     @ResponseBody
+    @RequestMapping("pullDailyPrice")
+    public Object pullDailyPrice() {
+        dayPriceCrawlTask.execute();
+        return "success";
+    }
+
+    @ResponseBody
     @RequestMapping("updateStockInfos")
     public Object updateStockInfos() {
         stockInfoTask.execute();
         return "success";
+    }
+
+    @ResponseBody
+    @RequestMapping("qt")
+    public Object qtStocks(@RequestParam(defaultValue = "1") int newS) {
+        return stockBizService.zhangtingConcept(newS);
     }
 }

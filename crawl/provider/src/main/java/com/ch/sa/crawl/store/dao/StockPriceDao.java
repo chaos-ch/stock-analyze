@@ -1,6 +1,7 @@
 package com.ch.sa.crawl.store.dao;
 
 import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.store.bean.PriceData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -30,4 +31,12 @@ public interface StockPriceDao {
      * @param bsTime 日期
      */
     void saveDailyPrice(@Param("stockCode") String code, @Param("data") String data, @Param("bsTime") Date bsTime);
+
+    /**
+     * select
+     * @param code code
+     * @param begin date begin
+     * @return price data
+     */
+    List<PriceData> selectDailyPrice(@Param("code") String code, @Param("dateBegin") Date begin, @Param("limit") Integer limit);
 }
