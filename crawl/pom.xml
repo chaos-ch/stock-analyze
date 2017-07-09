@@ -11,11 +11,9 @@
     <artifactId>crawl</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>crawl Maven Webapp</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
-        <skipTests>false</skipTests>
+        <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <ch.base.lang.api>1.0-SNAPSHOT</ch.base.lang.api>
@@ -64,9 +62,7 @@
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <finalName>crawl</finalName>
-    </build>
+
 
     <modules>
         <module>api</module>

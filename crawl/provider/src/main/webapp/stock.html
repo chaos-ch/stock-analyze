@@ -5,14 +5,74 @@
     <title>趋势量化</title>
     <!-- 引入 ECharts 文件 -->
     <script src="js/echarts.min.js"></script>
-    <script src="js/jquery.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    <div id="main" style="width: 600px;height:400px;"></div>
-    <div id="zt" style="width: 600px;height:400px;"></div>
+
+
+<form name="searchs" id="searchs"  >
+    <table>
+        <td>概念:<input type="text" id="concepts" name="concepts"></td>
+        <td>涨幅:<input type="text" id="zhangfu" name="zhangfu"></td>
+
+    </table>
+
+    <input type="button" name="submit" onclick="commit();" value="提交"/>
+    </table>
+    <table id="ulist" border="2">
+
+    </table>
+</form>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<div id="zt" style="width: 600px;height:400px;"></div>
 
     <script type="text/javascript">
+
+        function commit(){
+            var jsonInfo = decodeURIComponent($('#searchs').serialize());
+            var paramArray = jsonInfo.split("&");
+            var json = "{";
+
+//                    + "\"}"
+            var lastIndex = paramArray.length -1;
+            $.each(paramArray, function (n, value) {
+                var keyArray = value.split("=");
+                json += "\"" + keyArray[0] + "\":\"" +  keyArray[1] + "\"";
+                if (n != lastIndex) {
+                    json += ",";
+                }
+            });
+            json += "}";
+//            alert(JSON.stringify(jsonuserinfo)
+//            alert(json)
+            $.ajax(
+                    {type : "post",
+                        data:json,
+                        url : "/sa/search",
+                        contentType: "application/json; charset=utf-8",
+                        dataType : "json",
+                        success : callback
+                    }
+            );
+        }
+
+        function callback(data){
+
+//            var json =  JSON.parse(data);
+
+            $("#ulist").html("")
+            var ulist =  $("#ulist");
+            ulist.append("<tr><td>序号</td><td>代码</td><td>名字</td><td>涨跌幅</td></tr>");
+            var num = 1;
+            $.each(data.stockList, function(i,item){
+                ulist.append("<tr><td>" + num++ + "</td>" +
+                        "<td>"+item.code+"</td><td>"+item.nameCn+"</td>"
+                        + "<td>"+item.zhangfu+" %</td></tr>"
+                );
+            })
+        }
+
         // 基于准备好的dom，初始化echarts实
 
         var myChart = echarts.init(document.getElementById('main'));
@@ -44,7 +104,7 @@
 
         myChart.showLoading();
         // 异步加载数据
-        $.getJSON('/sa/crawl/door/qt', function (data) {
+        $.getJSON('/sa/qt', function (data) {
             myChart.hideLoading();
             // 填入数据
             myChart.setOption({
@@ -100,7 +160,7 @@
 
         ztChart.showLoading();
         // 异步加载数据
-        $.getJSON('/sa/crawl/door/qt', function (data) {
+        $.getJSON('/sa/qt', function (data) {
             ztChart.hideLoading();
             // 填入数据
             ztChart.setOption({
@@ -125,5 +185,6 @@
             });
         });
     </script>
+
 </body>
 </html>
