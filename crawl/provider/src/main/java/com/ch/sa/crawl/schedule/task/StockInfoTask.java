@@ -39,7 +39,7 @@ public class StockInfoTask implements Schedulable {
     private BaiduPriceAdaptor priceAdaptor;
 
     @Override
-    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 5)
     public void execute() {
         logger.info("save stock info task start...");
         stockInfoService.saveStockAll();

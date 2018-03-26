@@ -40,7 +40,7 @@ public class DayPriceCrawlTask implements Schedulable {
     private StockPriceService priceService;
 
     @Override
-    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 5)
     public void execute() {
         logger.info("daily price crawl task start...");
 

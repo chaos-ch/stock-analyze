@@ -40,7 +40,8 @@ public class PriceCrawlTask implements Schedulable {
     @Resource
     private BaiduPriceAdaptor priceAdaptor;
 
-    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
+    @Override
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 5)
     public void execute() {
         logger.info("price crawl task start...");
 
@@ -83,6 +84,7 @@ public class PriceCrawlTask implements Schedulable {
         Date truncate = DateUtils.truncate(now, Calendar.DATE);
         System.out.println(truncate);
     }
+    @Override
     public String cron() {
         return null;
     }
