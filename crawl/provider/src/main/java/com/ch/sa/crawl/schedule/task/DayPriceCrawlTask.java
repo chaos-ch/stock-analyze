@@ -16,6 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,8 +39,11 @@ public class DayPriceCrawlTask implements Schedulable {
     @Resource
     private StockPriceService priceService;
 
-//    @Scheduled()
+    @Override
+    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
     public void execute() {
+        logger.info("daily price crawl task start...");
+
         List<Stock> stockList = stockInfoService.queryAll();
         if (CollectionUtils.isEmpty(stockList)) {
             return;
@@ -80,6 +84,7 @@ public class DayPriceCrawlTask implements Schedulable {
         Date truncate = DateUtils.truncate(now, Calendar.DATE);
         System.out.println(truncate);
     }
+    @Override
     public String cron() {
         return null;
     }

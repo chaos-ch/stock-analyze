@@ -56,6 +56,16 @@ public class DoorController {
     private StockBizServiceImpl stockBizService;
 
     @ResponseBody
+    @RequestMapping("/updateDay")
+    public Object updateDay() {
+
+        Object stocks = saveStocks();
+        updateStockInfos();
+        pullDailyPrice();
+        return stocks;
+    }
+
+    @ResponseBody
     @RequestMapping("/singleCrawl")
     public Object singleCrawl(@RequestParam("code") String code) {
 

@@ -1,8 +1,6 @@
 package com.ch.sa.crawl.schedule.task;
 
 import com.ch.sa.crawl.bean.Stock;
-import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
-import com.ch.sa.crawl.bean.qqstock.QQResponse;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfoResponse;
 import com.ch.sa.crawl.crawl.adaptor.BaiduPriceAdaptor;
@@ -10,12 +8,11 @@ import com.ch.sa.crawl.crawl.service.Crawler;
 import com.ch.sa.crawl.price.StockInfoService;
 import com.ch.sa.crawl.price.StockPriceService;
 import com.ch.sa.crawl.schedule.Schedulable;
-import com.ch.sa.crawl.store.bean.PriceData;
-import com.ch.sa.crawl.util.JsonUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,8 +38,11 @@ public class StockInfoTask implements Schedulable {
     @Resource
     private BaiduPriceAdaptor priceAdaptor;
 
-//    @Scheduled()
+    @Override
+    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
     public void execute() {
+        logger.info("save stock info task start...");
+        stockInfoService.saveStockAll();
         List<Stock> stockList = stockInfoService.queryAll();
         if (CollectionUtils.isEmpty(stockList)) {
             return;
@@ -77,6 +77,7 @@ public class StockInfoTask implements Schedulable {
         Date truncate = DateUtils.truncate(now, Calendar.DATE);
         System.out.println(truncate);
     }
+    @Override
     public String cron() {
         return null;
     }

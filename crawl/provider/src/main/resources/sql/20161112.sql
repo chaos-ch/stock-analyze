@@ -26,7 +26,7 @@ CREATE TABLE `stock_base_info` (
   `data` TEXT not null COMMENT '股票基本信息详情',
   `version` int(11) NOT NULL COMMENT '更新时的版本号',
   `create_time` DATETIME NOT NULL DEFAULT now() COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_code` (`code`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='股票基本信息详情';

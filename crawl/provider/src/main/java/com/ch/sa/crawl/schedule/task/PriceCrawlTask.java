@@ -40,8 +40,10 @@ public class PriceCrawlTask implements Schedulable {
     @Resource
     private BaiduPriceAdaptor priceAdaptor;
 
-//    @Scheduled()
+    @Scheduled(fixedRateString ="1000 * 60 * 60 * 5")
     public void execute() {
+        logger.info("price crawl task start...");
+
         List<Stock> stockList = stockInfoService.queryAll();
         if (CollectionUtils.isEmpty(stockList)) {
             return;
