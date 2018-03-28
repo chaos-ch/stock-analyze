@@ -1,7 +1,7 @@
 package com.ch.sa.crawl.controller;
 
 import com.ch.sa.crawl.bean.SearchQuery;
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
 import com.ch.sa.crawl.bean.baidu.BaiduStockPrice;
 import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;

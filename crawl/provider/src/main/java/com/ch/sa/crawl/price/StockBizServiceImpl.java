@@ -1,6 +1,10 @@
 package com.ch.sa.crawl.price;
 
-import com.ch.sa.crawl.bean.*;
+import com.ch.sa.crawl.api.bean.Stock;
+import com.ch.sa.crawl.bean.QtStock;
+import com.ch.sa.crawl.bean.QuantizationStock;
+import com.ch.sa.crawl.bean.SearchQuery;
+import com.ch.sa.crawl.bean.ZhangtingConcept;
 import com.ch.sa.crawl.bean.qqstock.QQCategory;
 import com.ch.sa.crawl.bean.qqstock.QQDayPrice;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
@@ -36,6 +40,7 @@ public class StockBizServiceImpl implements StockBizService {
     private List<QtStock> allStocks = Lists.newArrayList();
 
 
+    @Override
     public Object zhangtingConcept(int newStock) {
 
         List<QtStock> allQtStockList = loadAll(true);
@@ -64,6 +69,7 @@ public class StockBizServiceImpl implements StockBizService {
 
     }
 
+    @Override
     public List<Stock> search(SearchQuery query) {
         List<Stock> stockList = Lists.newArrayList();
         String concepts = query.getConcepts();

@@ -17,7 +17,7 @@
 		select data	from stock_base_info where code = #{code}
 	</select>
 
-    <select id="queryAllStock" resultType="com.ch.sa.crawl.bean.Stock">
+    <select id="queryAllStock" resultType="com.ch.sa.crawl.api.bean.Stock">
     	select
 		<include refid="selectFields"/>
 		from stock_summary

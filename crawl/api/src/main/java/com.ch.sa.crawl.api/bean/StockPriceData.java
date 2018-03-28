@@ -1,4 +1,4 @@
-package com.ch.sa.crawl.bean;
+package com.ch.sa.crawl.api.bean;
 
 import java.io.Serializable;
 import java.util.Date;

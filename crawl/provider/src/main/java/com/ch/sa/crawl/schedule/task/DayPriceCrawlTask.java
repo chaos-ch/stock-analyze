@@ -1,7 +1,7 @@
 package com.ch.sa.crawl.schedule.task;
 
 import com.ch.base.lang.time.DateHelper;
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
 import com.ch.sa.crawl.bean.qqstock.QQDailyPriceResponse;
 import com.ch.sa.crawl.bean.qqstock.QQResponse;

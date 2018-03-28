@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.crawl.service;
 
-import com.ch.sa.crawl.bean.StockPriceData;
+import com.ch.sa.crawl.api.bean.StockPriceData;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 

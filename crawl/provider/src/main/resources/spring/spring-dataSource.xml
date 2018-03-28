@@ -71,7 +71,7 @@
             <value>stock</value>
         </property>
         <property name="password">
-            <value>123456</value>
+            <value>${jdbc.password}</value>
         </property>
     </bean>
     <!-- 创建SqlSessionFactory -->

@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.store.dao;
 
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.store.bean.BaseInfo;
 import org.apache.ibatis.annotations.Param;

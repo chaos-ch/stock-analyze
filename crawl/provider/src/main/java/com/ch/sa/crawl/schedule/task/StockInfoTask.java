@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.schedule.task;
 
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfoResponse;
 import com.ch.sa.crawl.crawl.adaptor.BaiduPriceAdaptor;

@@ -1,7 +1,7 @@
 package com.ch.sa.crawl.crawl.adaptor;
 
 import com.ch.base.lang.time.DateHelper;
-import com.ch.sa.crawl.bean.StockPriceData;
+import com.ch.sa.crawl.api.bean.StockPriceData;
 import com.ch.sa.crawl.bean.baidu.BaiduPriceResponse;
 import com.ch.sa.crawl.bean.baidu.BaiduStockPrice;
 import com.ch.sa.crawl.store.bean.PriceData;

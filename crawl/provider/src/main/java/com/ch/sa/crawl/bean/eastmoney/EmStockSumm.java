@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.bean.eastmoney;
 
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 
 import java.io.Serializable;
 import java.util.List;

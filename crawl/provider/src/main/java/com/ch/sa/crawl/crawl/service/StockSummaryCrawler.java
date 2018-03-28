@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.crawl.service;
 
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;
 import com.ch.sa.crawl.util.JsonUtil;
 import com.google.common.base.Splitter;

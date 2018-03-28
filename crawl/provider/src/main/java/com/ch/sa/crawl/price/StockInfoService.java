@@ -1,6 +1,6 @@
 package com.ch.sa.crawl.price;
 
-import com.ch.sa.crawl.bean.Stock;
+import com.ch.sa.crawl.api.bean.Stock;
 import com.ch.sa.crawl.bean.eastmoney.EmStockSumm;
 import com.ch.sa.crawl.bean.qqstock.QQGegu;
 import com.ch.sa.crawl.bean.qqstock.QQStockBaseInfo;
