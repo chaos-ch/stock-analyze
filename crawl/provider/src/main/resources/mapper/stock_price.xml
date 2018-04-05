@@ -22,6 +22,9 @@
 	<insert id="saveDailyPrice">
 		insert into stock_day_price(code, data, bs_time)
 		values(#{stockCode}, #{data}, #{bsTime})
+		ON duplicate KEY UPDATE
+		data = #{data},
+		bs_time = #{bsTime}
 	</insert>
 
 	<select id="selectDailyPrice" resultType="com.ch.sa.crawl.store.bean.PriceData">

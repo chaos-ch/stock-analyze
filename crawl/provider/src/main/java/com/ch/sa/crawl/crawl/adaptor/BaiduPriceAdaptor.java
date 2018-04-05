@@ -19,6 +19,7 @@ import java.util.List;
 @Service
 public class BaiduPriceAdaptor implements Adaptor<BaiduPriceResponse, PriceData> {
 
+    @Override
     public PriceData adapt(BaiduPriceResponse from) {
         PriceData priceData = new PriceData();
 
